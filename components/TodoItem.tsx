@@ -1,67 +1,14 @@
 'use client';
 
-<<<<<<< HEAD
-import { useState, useTransition } from 'react';
 import { Todo } from '@/types/todo';
+import { useState, useTransition, FormEvent } from 'react';
 import { toggleTodo, deleteTodo, updateTodo } from '@/app/actions';
-
-export default function TodoItem({ todo }: { todo: Todo }) {
-    const [isPending, startTransition] = useTransition();
-    const [isEditing, setIsEditing] = useState(false);
-    const [editTitle, setEditTitle] = useState(todo.title);
-
-    function handleEditSubmit() {
-        if (editTitle.trim() && editTitle !== todo.title) {
-            startTransition(() => updateTodo(todo.id, editTitle));
-        }
-        setIsEditing(false);
-    }
-
-    return (
-        <div className="flex items-center justify-between p-3 bg-white rounded-xl shadow mb-3">
-            {isEditing ? (
-                <input
-                    value={editTitle}
-                    onChange={(e) => setEditTitle(e.target.value)}
-                    onBlur={handleEditSubmit}
-                    onKeyDown={(e) => e.key === 'Enter' && handleEditSubmit()}
-                    className="flex-1 border rounded-xl p-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500 "
-                    autoFocus
-                />
-            ) : (
-                <button
-                    onClick={() => setIsEditing(true)}
-                    className={`text-left flex-1 ${todo.completed ? 'line-through text-gray-400' : 'text-gray-900'}`}
-                >
-                    {todo.title}
-                </button>
-            )}
-
-            <button
-                onClick={() => startTransition(() => toggleTodo(todo.id))}
-                className={`mr-2 text-sm px-2 py-1 rounded-lg ${todo.completed ? 'bg-green-500 text-white' : 'bg-green-600 text-black'}`}
-            >
-                {todo.completed ? '✓' : '◻ '}
-            </button>
-
-            <button
-                onClick={() => startTransition(() => deleteTodo(todo.id))}
-                className="bg-red-500 text-white text-sm px-2 py-1 rounded-lg"
-            >
-                Delete X
-            </button>
-=======
-import { Todo } from "@/types/todo";
-import { useState, useTransition, FormEvent } from "react";
-import { toggleTodo, deleteTodo, updateTodo } from "@/app/actions";
 
 interface TodoItemProps {
     todo: Todo;
 }
 
 export default function TodoItem({ todo }: TodoItemProps) {
-
-
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState(todo.title);
     const [isPending, startTransition] = useTransition();
@@ -76,7 +23,6 @@ export default function TodoItem({ todo }: TodoItemProps) {
 
     return (
         <div className="p-3 bg-white rounded-xl shadow mb-3 flex items-center justify-between gap-3">
-
             {isEditing ? (
                 <form onSubmit={handleEditSubmit} className="flex-1 flex gap-2">
                     <input
@@ -85,19 +31,14 @@ export default function TodoItem({ todo }: TodoItemProps) {
                         onChange={(e) => setTitle(e.target.value)}
                         autoFocus
                     />
-
-                    <button className="bg-green-600 text-white px-3 rounded">
-                        Save
-                    </button>
+                    <button className="bg-green-600 text-white px-3 rounded">Save</button>
                 </form>
             ) : (
                 <>
                     <button
-                        onClick={() =>
-                            startTransition(() => toggleTodo(todo.id))
-                        }
+                        onClick={() => startTransition(() => toggleTodo(todo.id))}
                         className={`text-left flex-1 ${
-                            todo.completed ? "line-through text-gray-400" : "text-gray-900"
+                            todo.completed ? 'line-through text-gray-400' : 'text-gray-900'
                         }`}
                     >
                         {todo.title}
@@ -105,22 +46,19 @@ export default function TodoItem({ todo }: TodoItemProps) {
 
                     <button
                         onClick={() => setIsEditing(true)}
-                        className=" bg-blue-600  text-white py-1 px-2 rounded underline text-sm"
+                        className="bg-blue-600 text-white py-1 px-2 rounded underline text-sm"
                     >
                         Edit
                     </button>
 
                     <button
-                        onClick={() =>
-                            startTransition(() => deleteTodo(todo.id))
-                        }
+                        onClick={() => startTransition(() => deleteTodo(todo.id))}
                         className="bg-red-500 text-white text-sm px-2 py-1 rounded"
-                    >Delete X
+                    >
+                        Delete X
                     </button>
                 </>
             )}
-
->>>>>>> prod
         </div>
     );
 }
