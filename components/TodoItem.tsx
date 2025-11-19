@@ -54,7 +54,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
 
                     <button
                         onClick={() => setIsEditing(true)}
-                        className="text-blue-600 underline text-sm"
+                        className=" bg-blue-600  text-white py-1 px-2 rounded underline text-sm"
                     >
                         Edit
                     </button>
@@ -64,8 +64,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
                             startTransition(() => deleteTodo(todo.id))
                         }
                         className="bg-red-500 text-white text-sm px-2 py-1 rounded"
-                    >
-                        X
+                    >Delete X
                     </button>
                 </>
             )}
