@@ -1,8 +1,8 @@
 'use client';
 
-import { Todo } from '@/types/todo';
-import { useState, useTransition, FormEvent } from 'react';
-import { toggleTodo, deleteTodo, updateTodo } from '@/app/actions';
+import { Todo } from "@/types/todo";
+import { useState, useTransition, FormEvent } from "react";
+import { toggleTodo, deleteTodo, updateTodo } from "@/app/actions";
 
 interface TodoItemProps {
     todo: Todo;
@@ -10,11 +10,13 @@ interface TodoItemProps {
 
 export default function TodoItem({ todo }: TodoItemProps) {
     const [isEditing, setIsEditing] = useState(false);
-    const [title, setTitle] = useState(todo.title);
+    const [title, setTitle] = useState(todo.title || '');
     const [isPending, startTransition] = useTransition();
 
-    function handleEditSubmit(e: FormEvent) {
-        e.preventDefault();
+    function handleEditSubmit(e?: FormEvent) {
+        e?.preventDefault();
+        if (!title.trim() || title === todo.title) return;
+
         startTransition(async () => {
             await updateTodo(todo.id, title);
             setIsEditing(false);
@@ -38,7 +40,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
                     <button
                         onClick={() => startTransition(() => toggleTodo(todo.id))}
                         className={`text-left flex-1 ${
-                            todo.completed ? 'line-through text-gray-400' : 'text-gray-900'
+                            todo.completed ? "line-through text-gray-400" : "text-gray-900"
                         }`}
                     >
                         {todo.title}

@@ -1,15 +1,13 @@
 'use client';
 
-import { useState, useTransition } from 'react';
-import { addTodo } from '@/app/actions';
-
-
+import { useState, useTransition, FormEvent } from "react";
+import { addTodo } from "@/app/actions";
 
 export default function TodoForm() {
     const [title, setTitle] = useState('');
     const [isPending, startTransition] = useTransition();
 
-    function handleSubmit(e: React.FormEvent) {
+    function handleSubmit(e: FormEvent) {
         e.preventDefault();
         if (!title.trim()) return;
 
@@ -26,10 +24,7 @@ export default function TodoForm() {
                 onChange={(e) => setTitle(e.target.value)}
                 className="flex-1 p-2 rounded-xl border border-gray-300"
             />
-            <button
-                type="submit"
-                className="bg-blue-600 text-white px-4 rounded-xl"
-            >
+            <button type="submit" className="bg-blue-600 text-white px-4 rounded-xl">
                 Add
             </button>
         </form>

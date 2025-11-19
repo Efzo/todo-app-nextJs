@@ -1,6 +1,6 @@
-import { getTodos } from '@/app/actions';
-import TodoItem from '@/components/TodoItem';
-import TodoForm from '@/components/TodoForm';
+import { getTodos } from "@/app/actions";
+import TodoForm from "@/components/TodoForm";
+import TodoItemList from "@/components/TodoItemList";
 
 export default async function Page() {
     const todos = await getTodos();
@@ -9,15 +9,11 @@ export default async function Page() {
         <main className="max-w-lg mx-auto py-10">
             <h1 className="text-3xl font-bold mb-6 text-center">Todo App</h1>
 
+            {/* Client-side interactive form */}
             <TodoForm />
 
-            <div className="mt-6">
-                {todos.length === 0 ? (
-                    <p className="text-center text-gray-500">No todos yet. Add one!</p>
-                ) : (
-                    todos.map((t) => <TodoItem key={t.id} todo={t} />)
-                )}
-            </div>
+            {/* Client-side interactive todo list */}
+            <TodoItemList todos={todos} />
         </main>
     );
 }
